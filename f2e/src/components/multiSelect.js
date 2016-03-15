@@ -9,14 +9,15 @@ export default class MultiSelect extends Component {
     }
 
     onChange(value) {
-        console.log(value)
+        const {id,setValue}=this.props;
+        setValue(id,value.join(','));
     }
 
     render() {
         const {title,options,index}=this.props;
         return (
-            <div>
-                <div>{index-0+1}. {title}</div>
+            <div className="question">
+                <div className="qt">{index-0+1}. {title}</div>
                 <CheckboxGroup options={options} onChange={this.onChange} />
             </div>
         )

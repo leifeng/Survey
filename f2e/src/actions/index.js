@@ -55,8 +55,8 @@ export const GET_QUESTION = 'GET_QUESTION';
 export const SET_QUESTION = 'SET_QUESTION';
 
 export const SET_VALUE = 'SET_VALUE';
-export const GET_BOOL = 'GET_BOOL';
-export const SET_BOOL = 'SET_BOOL';
+
+export const SET_INDEX_INFO = 'SET_INDEX_INFO';
 
 export const getQuestionData = ()=> {
     return dispatch=> {
@@ -73,7 +73,7 @@ export const setQuestion = (question)=> {
     }
 };
 
-export const setValue = (id, value)=> {
+export const setAnswerValue = (id, value)=> {
     return {
         type: SET_VALUE,
         id,
@@ -81,9 +81,3 @@ export const setValue = (id, value)=> {
     }
 };
 
-export const getBool = (index)=> {
-    return {
-        type: GET_BOOL,
-        index
-    }
-}

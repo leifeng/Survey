@@ -1,6 +1,7 @@
 import {combineReducers} from 'redux';
-import {SET_QUESTION,SET_VALUE,GET_BOOL,SET_BOOL} from '../actions/index.js';
+import {SET_QUESTION,SET_VALUE,SET_INDEX_INFO} from '../actions/index.js';
 const indexState = {};
+const answerState={};
 const questionState = [];
 
 const question = (state = questionState, action = null)=> {
@@ -12,36 +13,30 @@ const question = (state = questionState, action = null)=> {
     }
 };
 
-const boolState = (state = indexState, action = null)=> {
-    switch (action.type) {
-        case GET_BOOL:
-            return indexState[action.index];
-        case SET_BOOL:
-            const key = action.index;
-            return Object.assign({}, indexState, {key: true});
-        default:
-            return state;
-    }
-};
+const indexInfo=(state=indexState,action=null)=>{
+	switch(action.type){
+		case SET_INDEX_INFO:
+			let key={};
+			key['i'+action.id]=action.value
+			return Object.assign({},state,key);
+		default:
+			return state;
+	}
+}
 
+const answer=(state=answerState,action=null)=>{
+	switch(action.type){
+		case SET_VALUE:
+		let key={};
+			key['_'+action.id]=action.value
+			return Object.assign({},state,key);
+		default:
+			return state;
+	}
+}
 
-const answer = (state = questionState, action = null)=> {
-    switch (action.type) {
-        case SET_VALUE:
-            let b = boolState(indexState, {type: GET_BOOL, index: action.id});
-            if (b) {
-                return state.map(item=>item.id === action.id ? {id: action.id, value: action.value} : item)
-            } else {
-                boolState(indexState, {type: SET_BOOL, index: action.id});
-                return [...state, {id: action.id, value: action.value}]
-            }
-        default:
-            return questionState;
-
-    }
-};
 const surveyReducers = combineReducers({
-    answer,
+	answer,
     question
 });
 module.exports = surveyReducers;
