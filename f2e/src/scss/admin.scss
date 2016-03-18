@@ -1,0 +1,69 @@
+body{
+	background-color: #f3f3f3;
+}
+input{
+	outline:none;
+}
+.main{
+	.leftSide{
+		font-size: 12px;
+		float:left;
+		a{
+			margin:0 10px;
+			display: block;
+			line-height: 30px;
+		    height: 30px;
+		}
+		.qs{
+			width: 100px;
+			li{
+				background-color: #fff;
+		    	padding: 0 8px;
+		    	border-bottom: 1px solid #F6F7F7;
+		    	font-size: 16px;
+			}
+		}
+	}
+	.rightQuestion{
+		float: left;
+		width: 600px;
+		margin-left: 10px;
+		.panel{
+			background-color: #fff;
+			margin-bottom: 20px;
+			padding:10px;
+			.title{
+				line-height: 30px;
+				height: 30px;
+				margin-bottom: 10px;
+			}
+			.del{
+				float: right;
+				color: red;
+				font-size: 14px;
+			}
+			
+			&:after{
+				content: '';
+				display: block;
+				clear: both;
+			}
+		}
+		.targetQ{
+			min-height: 250px;
+		}
+		.list{
+			margin-top: 10px;
+			margin-bottom:10px;
+			input[type=text]{
+				text-indent: 15px;
+				border:none;
+				width: 30%;
+				border-bottom:1px solid #d3d3d3;
+			}
+			li{
+				line-height: 30px;
+			}
+		}
+	}
+}

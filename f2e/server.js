@@ -33,6 +33,10 @@ app.get('/data',function(req,res){
             id: 10003,
             title: '排序题',
             options: ['第一', '第二', '第三']
+        },{
+            type:5,
+            title:'img single',
+            options:['a','b','v']
         }
     ])
 })

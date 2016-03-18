@@ -2,10 +2,11 @@ import React,{Component} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {Button} from 'antd';
-import SingleChoice from './singleChoice.js';
-import MultiSelect from './multiSelect.js';
-import FillIn from './fillIn.js';
-import Grag from './drag.js';
+import SingleChoice from './index/singleChoice.js';
+import SingleImgChoice from './index/singleImgChoice.js'
+import MultiSelect from './index/multiSelect.js';
+import FillIn from './index/fillIn.js';
+import Grag from './index/drag.js';
 import * as actions from '../actions'
 class Index extends Component {
     constructor(props) {
@@ -28,14 +29,13 @@ class Index extends Component {
                                 return <FillIn {...item} index={index} setValue={(id,value)=>setAnswerValue(id,value)} />;
                             case 4:
                                 return <Grag {...item} index={index} setValue={(id,value)=>setAnswerValue(id,value)} />;
+                            case 5:
+                                return <SingleImgChoice {...item} index={index} setValue={(id,value)=>setAnswerValue(id,value)} />;
                             default:
                                 return null;
                         }
                     })}
                      <Button type="primary" size="large">提交</Button>
-                </div>
-                <div>
-
                 </div>
             </div>
         )
