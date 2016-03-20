@@ -5,7 +5,7 @@ export const DEL_QUESTION = 'DEL_QUESTION';
 export const EDIT_ORDER='EDIT_ORDER';
 export const EDIT_TITLE='EDIT_TITLE';
 export const UPDATE_ORDERS='UPDATE_ORDERS';
-
+export const UPDATE_QUESTION='UPDATE_QUESTION';
 
 export const addQuestion=(option)=>{
 	return{
@@ -26,6 +26,13 @@ export const delQuestion=(order)=>{
 	return{
 		type:DEL_QUESTION,
 		order
+	}
+}
+
+export  const updateQuestion=(questions)=>{
+	return{
+		type:UPDATE_QUESTION,
+		questions
 	}
 }
 

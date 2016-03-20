@@ -1,5 +1,5 @@
 import React,{Component} from 'react';
-import {Input,Button,Icon,Tooltip} from 'antd';
+import {Input,Button,Icon} from 'antd';
 
 
 export default class PublicLayout extends Component{
@@ -14,13 +14,12 @@ export default class PublicLayout extends Component{
 
 
 	render() {
-		const {title,options,order,txt,o}=this.props;
+		const {title,options,order,txt,o,type}=this.props;
         return (
         	<div className="panel" data-order={order} data-index={o}>
         		<div className="title">
-        		{txt}
-        		<Tooltip placement="rightBottom" title="删除"><a className="del" onClick={this.onDelQ}><Icon type="minus-circle-o" /></a></Tooltip>
-        		
+        		{txt}  {order}   {type}
+        	   <a className="del" onClick={this.onDelQ}><Icon type="minus-circle-o" /></a>        		
         		</div>
 	            <div className="question">
 	                <Input id="defaultInput" placeholder="标题" onChange={this.onTitleChange} value={title}/>

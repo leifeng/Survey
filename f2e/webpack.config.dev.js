@@ -3,8 +3,8 @@ var webpack = require('webpack');
 
 module.exports = {
     entry: [
-        'webpack-hot-middleware/client',
-        './src/admin.js'
+        'webpack-hot-middleware/client','./test'
+        //'./src/admin.js'
     ],
     output: {
         path: path.join(__dirname, 'dist'),
@@ -18,8 +18,8 @@ module.exports = {
     module: {
         loaders: [{
             test: /\.js$/,
-            loaders: ['babel'],
-            include: path.join(__dirname, 'src')
+            loaders: ['babel']
+           // include: path.join(__dirname, 'src')
         },
         {
             test: /\.css$/,

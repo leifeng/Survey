@@ -17,21 +17,21 @@ app.get('/data',function(req,res){
         {
             type: 1,
             id: 1000,
-            title: '这是单选问题',
+            title: '0这是单选问题',
             options: ['选项1', '选项2', '选项3']
         }, {
             type: 2,
             id: 10001,
-            title: '这是多选问题',
+            title: '1这是多选问题',
             options: ['选项1', '选项2', '选项3']
         }, {
             type: 3,
             id: 10002,
-            title: '这是填空题'
+            title: '2这是填空题'
         }, {
             type: 4,
             id: 10003,
-            title: '排序题',
+            title: '3排序题',
             options: ['第一', '第二', '第三']
         },{
             type:5,

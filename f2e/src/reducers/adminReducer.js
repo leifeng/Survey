@@ -1,5 +1,5 @@
 import {combineReducers} from 'redux';
-import {ADD_QUESTION,EDIT_QUESTION,DEL_QUESTION,EDIT_ORDER,EDIT_TITLE,UPDATE_ORDERS} from '../actions/adminActions.js';
+import {ADD_QUESTION,EDIT_QUESTION,DEL_QUESTION,EDIT_ORDER,EDIT_TITLE,UPDATE_ORDERS,UPDATE_QUESTION} from '../actions/adminActions.js';
 
 
 /*
@@ -37,13 +37,15 @@ const questions=(state=questionsState,action=null)=>{
 			const op=action.option;			
 			return state.map(item=>item.order===action.order?Object.assign({},item,op):item);
 		case EDIT_ORDER:
-			console.log('传入',orders);
+			console.log('传入',action.orders);
 			return state.map((item)=>{				
 				//console.log(item.order,action.orders.indexOf(item.order))
 				return Object.assign({},item,{order:action.orders.indexOf(item.order)})
-			}).sort((a,b)=>a.order>b.order);
+			});//.sort((a,b)=>a.order>b.order);
 		case DEL_QUESTION:
-			return state.filter(item=>item.order!==action.order);
+			return state.filter(item=>{if(item.order!==action.order){console.log(item.order,item.type);return true} return false});
+		case UPDATE_QUESTION:
+			return action.questions;
 		default:
 			return state;
 
