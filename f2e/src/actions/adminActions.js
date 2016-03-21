@@ -2,9 +2,7 @@
 export const ADD_QUESTION = 'ADD_QUESTION';
 export const EDIT_QUESTION = 'EDIT_QUESTION';
 export const DEL_QUESTION = 'DEL_QUESTION';
-export const EDIT_ORDER='EDIT_ORDER';
 export const EDIT_TITLE='EDIT_TITLE';
-export const UPDATE_ORDERS='UPDATE_ORDERS';
 export const UPDATE_QUESTION='UPDATE_QUESTION';
 
 export const addQuestion=(option)=>{
@@ -14,32 +12,27 @@ export const addQuestion=(option)=>{
 	}
 }
 
-export const editQuestion=(order,option)=>{
+export const editQuestion=(id,option)=>{
 	return{
 		type:EDIT_QUESTION,
-		order,
+		id,
 		option
 	}
 }
 
-export const delQuestion=(order)=>{
+export const delQuestion=(id)=>{
 	return{
 		type:DEL_QUESTION,
-		order
+		id
 	}
 }
 
-export  const updateQuestion=(questions)=>{
+export  const updateQuestion=(dragIndex,hoverIndex,dragQ)=>{
 	return{
 		type:UPDATE_QUESTION,
-		questions
-	}
-}
-
-export const editOrder=(orders)=>{
-	return{
-		type:EDIT_ORDER,
-		orders
+		dragIndex,
+		hoverIndex,
+		dragQ
 	}
 }
 
@@ -50,10 +43,4 @@ export const editTitle=(title)=>{
 	}
 }
 
-export const updateOrders=(orders)=>{
-	return{
-		type:UPDATE_ORDERS,
-		orders
-	}
-}
 

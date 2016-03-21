@@ -1,78 +1,78 @@
-import {combineReducers} from 'redux';
-import {ADD_QUESTION,EDIT_QUESTION,DEL_QUESTION,EDIT_ORDER,EDIT_TITLE,UPDATE_ORDERS,UPDATE_QUESTION} from '../actions/adminActions.js';
+import {
+	combineReducers
+}
+from 'redux';
+import {
+	ADD_QUESTION, EDIT_QUESTION, DEL_QUESTION, EDIT_ORDER, EDIT_TITLE, UPDATE_ORDERS, UPDATE_QUESTION
+}
+from '../actions/adminActions.js';
+import update from 'react/lib/update';
 
+// {
+// 	id: 123, //问卷id
+// 	questions: [{
+// 		type: 1, //题型
+// 		title: '这是单选问题', //问题
+// 		options: ['选项1', '选项2', '选项3'], //选项
+// 		index: 1 //排序
+// 	}, {
+// 		type: 2,
+// 		title: '这是多选问题',
+// 		options: ['选项1', '选项2', '选项3'],
+// 		index: 2
+// 	}, {
+// 		type: 3,
+// 		title: '这是填空题',
+// 		index: 3
+// 	}, {
+// 		type: 4,
+// 		title: '排序题',
+// 		options: ['第一', '第二', '第三'],
+// 		index: 4
+// 	}]
+// }
 
-/*
- [{
-	type: 1,
-	title: '这是单选问题',
-	options: ['选项1', '选项2', '选项3'],
-	order: 1
-}, {
-	type: 2,
-	title: '这是多选问题',
-	options: ['选项1', '选项2', '选项3'],
-	order: 2
-}, {
-	type: 3,
-	title: '这是填空题',
-	order: 3
-}, {
-	type: 4,
-	title: '排序题',
-	options: ['第一', '第二', '第三'],
-	order: 4
-}]
-*/
-//[1,2,3,4]
-const titleState='';
-const questionsState=[]
-const ordersState=[];
+const titleState = '';
+const questionsState = []
+const ordersState = [];
 
-const questions=(state=questionsState,action=null)=>{
-	switch(action.type){
+const questions = (state = questionsState, action = null) => {
+	switch (action.type) {
 		case ADD_QUESTION:
-			return [...state,action.option];
+			return [...state, action.option];
 		case EDIT_QUESTION:
-			const op=action.option;			
-			return state.map(item=>item.order===action.order?Object.assign({},item,op):item);
-		case EDIT_ORDER:
-			console.log('传入',action.orders);
-			return state.map((item)=>{				
-				//console.log(item.order,action.orders.indexOf(item.order))
-				return Object.assign({},item,{order:action.orders.indexOf(item.order)})
-			});//.sort((a,b)=>a.order>b.order);
+			const op = action.option;
+			return state.map(item => item.id === action.id ? Object.assign({}, item, op) : item);
 		case DEL_QUESTION:
-			return state.filter(item=>{if(item.order!==action.order){console.log(item.order,item.type);return true} return false});
+			return state.filter(item => {
+				return item.id !== action.id
+			});
 		case UPDATE_QUESTION:
-			return action.questions;
+			return update(state, {
+				$splice: [
+					[action.dragIndex, 1],
+					[action.hoverIndex, 0, action.dragQ]
+				]
+			})
 		default:
 			return state;
 
 	}
 }
 
-const title=(state=titleState,action=null)=>{
-	switch(action.type){
+const title = (state = titleState, action = null) => {
+	switch (action.type) {
 		case EDIT_TITLE:
 			return action.title;
 		default:
 			return state;
 	}
 }
-const orders=(state=ordersState,action=null)=>{
-	switch(action.type){
-		case UPDATE_ORDERS:
-			return action.orders;
-		default:
-			return state;
-	}
-}
+
 
 const surveyReducers = combineReducers({
 	questions,
-	title,
-	orders
+	title
 });
 
 module.exports = surveyReducers;

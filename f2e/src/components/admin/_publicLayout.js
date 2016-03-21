@@ -1,7 +1,59 @@
 import React,{Component} from 'react';
+import {findDOMNode} from 'react-dom';
 import {Input,Button,Icon} from 'antd';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import { DragSource, DropTarget } from 'react-dnd';
+import * as actions from '../../actions/adminActions';
 
+const source={
+    beginDrag(props){
+        return {
+            id:props.id,
+            index:props.index
+        }
+    }
+}
+const target={
+    hover(props,monitor,component){
+        const dragIndex=monitor.getItem().index;
+        const hoverIndex=props.index;
+        if(dragIndex===hoverIndex) return;
+        // Determine rectangle on screen
+        const hoverBoundingRect = findDOMNode(component).getBoundingClientRect();
 
+        // Get vertical middle
+        const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
+
+        // Determine mouse position
+        const clientOffset = monitor.getClientOffset();
+
+        // Get pixels to the top
+        const hoverClientY = clientOffset.y - hoverBoundingRect.top;
+
+        // Dragging downwards
+        if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
+          return;
+        }
+
+        // Dragging upwards
+        if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
+          return;
+        }
+
+        props.onMove(dragIndex, hoverIndex);
+
+        monitor.getItem().index = hoverIndex;
+    }
+}
+
+@DropTarget('publicLayout', target, connect => ({
+  connectDropTarget: connect.dropTarget()
+}))
+@DragSource('publicLayout', source, (connect, monitor) => ({
+  connectDragSource: connect.dragSource(),
+  isDragging: monitor.isDragging()
+}))
 export default class PublicLayout extends Component{
 	constructor(props){
 		super(props);
@@ -14,11 +66,13 @@ export default class PublicLayout extends Component{
 
 
 	render() {
-		const {title,options,order,txt,o,type}=this.props;
-        return (
-        	<div className="panel" data-order={order} data-index={o}>
+        const {isDragging,connectDragSource,connectDropTarget}=this.props;
+		const {title,options,id,txt,type}=this.props;
+        const opacity = isDragging ? 0 : 1;
+        return connectDragSource(connectDropTarget(
+        	<div className="panel" style={{opacity}}>
         		<div className="title">
-        		{txt}  {order}   {type}
+        		{txt}
         	   <a className="del" onClick={this.onDelQ}><Icon type="minus-circle-o" /></a>        		
         		</div>
 	            <div className="question">
@@ -31,50 +85,64 @@ export default class PublicLayout extends Component{
 	                <Button type="primary" onClick={this.onAdd}>添加</Button>
 	            </div>
             </div>
-        )
+        ))
     }
 
     onDelOpt(e){
-    	const {edit,order,options}=this.props;
+    	const {editQuestion,id,options}=this.props;
     	const target=e.target;
     	if(target.nodeName==='I'){
     		const idx=target.getAttribute('data-index')-0;
-    		edit(order,{
+    		editQuestion(id,{
     			options:options.filter((item,index)=>index!==idx)
     		})
     	}
     }
 
     onDelQ(){
-    	const {order,del}=this.props;
-    	del(order);
-
+    	const {id,delQuestion}=this.props;
+    	delQuestion(id);
     }
 
     onTitleChange(e){
-    	const {edit,order}=this.props;
-    	edit(order,{
+    	const {editQuestion,id}=this.props;
+    	editQuestion(id,{
     		title:e.target.value
     	}); 
     }
 
     onOptChange(e){
     	const target=e.target;
+        const {editQuestion,options,id}=this.props;
     	if(target.nodeName==='INPUT'){
-    		let {edit,options,order}=this.props;
     		let idx=target.getAttribute('data-index');
     		let value=target.value;
-    		edit(order,{
+    		editQuestion(id,{
     			options:options.map((item,index)=>index==idx?value:item)
     		}); 
     	}        
     }
 
     onAdd(){
-        const {edit,order,options}=this.props;
-        edit(order,{
-    		options:[...options,'']
+        const {editQuestion,id,options}=this.props;
+        editQuestion(id,{
+    	   options:[...options,'']
     	}); 
     }
 
 }
+
+function mapStateToProps(state) {
+    return {
+        questions: state.questions
+    }
+}
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators(actions, dispatch);
+}
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(PublicLayout)
