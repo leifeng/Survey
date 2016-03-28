@@ -3,13 +3,21 @@ import {
 }
 from 'redux';
 import {
-	ADD_QUESTION, EDIT_QUESTION, DEL_QUESTION, EDIT_ORDER, EDIT_TITLE, UPDATE_ORDERS, UPDATE_QUESTION
+	ADD_QUESTION, EDIT_QUESTION, DEL_QUESTION, EDIT_ORDER, EDIT_TITLE, UPDATE_ORDERS, UPDATE_QUESTION,SET_SID,UPDATE_LOAD
 }
 from '../actions/adminActions.js';
 import update from 'react/lib/update';
 
 // {
-// 	id: 123, //问卷id
+// 	sid: 123, //问卷id,
+// 	title:'',
+// 	options:{
+// 		startTime:'',
+// 		endTime:'',
+// 		ip:true,
+// 		repeat:true,
+// 		isLogin:true
+// 	}
 // 	questions: [{
 // 		type: 1, //题型
 // 		title: '这是单选问题', //问题
@@ -32,11 +40,18 @@ import update from 'react/lib/update';
 // 	}]
 // }
 
-const titleState = '';
-const questionsState = []
-const ordersState = [];
+const initState={
+	sid:0,
+	title:'',
+	options:{},
+	questions:[]
+};
 
-const questions = (state = questionsState, action = null) => {
+const view={
+	loading:false
+};
+
+const questions = (state = initState.questions, action = null) => {
 	switch (action.type) {
 		case ADD_QUESTION:
 			return [...state, action.option];
@@ -53,14 +68,13 @@ const questions = (state = questionsState, action = null) => {
 					[action.dragIndex, 1],
 					[action.hoverIndex, 0, action.dragQ]
 				]
-			})
+			});
 		default:
 			return state;
-
 	}
 }
 
-const title = (state = titleState, action = null) => {
+const title = (state = initState.title, action = null) => {
 	switch (action.type) {
 		case EDIT_TITLE:
 			return action.title;
@@ -69,10 +83,35 @@ const title = (state = titleState, action = null) => {
 	}
 }
 
+const options=(state=initState.options,action=null)=>{
+	return state;
+}
+
+const sid=(state=0,action=null)=>{
+	switch(action.type){
+		case SET_SID:
+			return action.sid;
+		default:
+			return state;
+	}
+	
+}
+
+const loading=(state=view.loading,action)=>{
+	switch(action.type){
+		case 'UPDATE_LOAD':
+			return action.load;
+		default:
+			return state;
+	}
+}
 
 const surveyReducers = combineReducers({
 	questions,
-	title
+	title,
+	sid,
+	options,
+	loading
 });
 
 module.exports = surveyReducers;

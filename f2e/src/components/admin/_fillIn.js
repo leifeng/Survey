@@ -69,7 +69,7 @@ export default class FillIn extends Component{
         	<div className="panel">
         		<div className="title">
         		填空题
-        		<Tooltip placement="rightBottom" title="删除"><a className="del" onClick={this.onDelQ}><Icon type="minus-circle-o" /></a></Tooltip>
+        		<Tooltip placement="rightBottom" title="删除"><a className="del" onClick={this.onDelQ}><Icon type="cross-circle-o" /></a></Tooltip>
         		
         		</div>
 	            <div className="question">

@@ -73,7 +73,7 @@ export default class PublicLayout extends Component{
         	<div className="panel" style={{opacity}}>
         		<div className="title">
         		{txt}
-        	   <a className="del" onClick={this.onDelQ}><Icon type="minus-circle-o" /></a>        		
+        	   <a className="del" onClick={this.onDelQ}><Icon type="cross-circle-o" /></a>        		
         		</div>
 	            <div className="question">
 	                <Input id="defaultInput" placeholder="标题" onChange={this.onTitleChange} value={title}/>
@@ -82,7 +82,7 @@ export default class PublicLayout extends Component{
 	                		return <li key={index}><Icon type="minus-circle-o" data-index={index}/><input type="text" value={item} data-index={index}/></li>
 	                	})}
 	                </ul>	               
-	                <Button type="primary" onClick={this.onAdd}>添加</Button>
+	                <Button type="primary" onClick={this.onAdd} size="small"><Icon type="plus-circle-o" />添加</Button>
 	            </div>
             </div>
         ))

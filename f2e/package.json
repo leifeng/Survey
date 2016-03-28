@@ -4,7 +4,7 @@
   "description": "问卷系统",
   "main": "index.js",
   "scripts": {
-    "build:webpack": "set NODE_ENV=production && webpack  --config webpack.config.js",
+    "build:webpack": "set NODE_ENV=production && webpack  --config webpack.config.prod.js --colors --profile",
     "start": "node server.js",
     "build": "npm run build:webpack"
   },
@@ -23,6 +23,7 @@
     "css-loader": "^0.23.1",
     "echarts": "^3.1.2",
     "express": "^4.13.4",
+    "fetch-jsonp": "^1.0.0",
     "isomorphic-fetch": "^2.2.1",
     "node-sass": "^3.4.2",
     "react": "^0.14.7",
