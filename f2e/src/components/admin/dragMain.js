@@ -22,13 +22,13 @@ export default class DragMain extends Component{
                     {questions.map((item,index)=>{
                         switch(item.type-0){
                                 case 1:
-                                    return <PublicLayout {...item} index={index} txt="单选题" key={item.id} onMove={this.onMove}/>;
+                                    return <PublicLayout key={item.unique} {...item} index={index} txt="单选题"  onMove={this.onMove}/>;
                                 case 2:
-                                    return <PublicLayout {...item} index={index} txt="多选题" key={item.id} onMove={this.onMove} />;
+                                    return <PublicLayout key={item.unique} {...item} index={index} txt="多选题"  onMove={this.onMove} />;
                                 case 3:
-                                    return <FillIn {...item} index={index} txt="填空题" key={item.id} onMove={this.onMove} />;
+                                    return <FillIn key={item.unique} {...item} index={index} txt="填空题"  onMove={this.onMove} />;
                                 case 4:
-                                    return <PublicLayout {...item} index={index} txt="排序选题" key={item.id} onMove={this.onMove}/>;
+                                    return <PublicLayout key={item.unique} {...item} index={index} txt="排序选题" onMove={this.onMove}/>;
                                 default:
                                     return null;
                         }

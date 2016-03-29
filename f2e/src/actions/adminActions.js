@@ -1,6 +1,6 @@
 
-//import fetch from 'isomorphic-fetch';
-import fetchJsonp  from "fetch-jsonp";
+import fetch from 'isomorphic-fetch';
+//import fetchJsonp  from "fetch-jsonp";
 export const ADD_QUESTION = 'ADD_QUESTION';
 export const EDIT_QUESTION = 'EDIT_QUESTION';
 export const DEL_QUESTION = 'DEL_QUESTION';
@@ -11,6 +11,8 @@ export const EDIT_TITLE='EDIT_TITLE';
 export const SET_SID='SET_SID';
 //view
 export const UPDATE_LOAD='UPDATE_LOAD';
+export const UPDATE_OPTIONS='UPDATE_OPTIONS';
+
 
 export const addQuestion=(option)=>{
 		return{
@@ -68,8 +70,13 @@ export const updateLoad=(load)=>{
 
 export const postSurvey=()=>{
 	return (dispatch,getState)=>{
-		fetchJsonp('/a?json='+JSON.stringify(getState()).toString(),{
-			jsonpCallback:'callback'
+		fetch('/admin/post/survey/edit',{
+			method: 'post',
+			  headers: {
+			    'Accept': 'application/json',
+			    'Content-Type': 'application/json'
+			  },
+			body: JSON.stringify(getState())
 		})
 		.then(res=>res.json())
 		.then(json=>{
@@ -80,5 +87,13 @@ export const postSurvey=()=>{
 		.catch(ex=>{
 			console.log(ex)
 		});
+	}
+}
+
+export const updateOptions=(name,value)=>{
+	return {
+		type:UPDATE_OPTIONS,
+		name,
+		value
 	}
 }

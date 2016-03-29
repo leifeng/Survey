@@ -9,7 +9,7 @@ import * as actions from '../../actions/adminActions';
 const source={
     beginDrag(props){
         return {
-            id:props.id,
+            unique:props.unique,
             index:props.index
         }
     }
@@ -67,12 +67,12 @@ export default class PublicLayout extends Component{
 
 	render() {
         const {isDragging,connectDragSource,connectDropTarget}=this.props;
-		const {title,options,id,txt,type}=this.props;
+		const {title,options,txt,type,index}=this.props;
         const opacity = isDragging ? 0 : 1;
         return connectDragSource(connectDropTarget(
         	<div className="panel" style={{opacity}}>
         		<div className="title">
-        		{txt}
+        		{index+1}.{txt}
         	   <a className="del" onClick={this.onDelQ}><Icon type="cross-circle-o" /></a>        		
         		</div>
 	            <div className="question">
@@ -89,43 +89,43 @@ export default class PublicLayout extends Component{
     }
 
     onDelOpt(e){
-    	const {editQuestion,id,options}=this.props;
+    	const {editQuestion,unique,options}=this.props;
     	const target=e.target;
     	if(target.nodeName==='I'){
     		const idx=target.getAttribute('data-index')-0;
-    		editQuestion(id,{
+    		editQuestion(unique,{
     			options:options.filter((item,index)=>index!==idx)
     		})
     	}
     }
 
     onDelQ(){
-    	const {id,delQuestion}=this.props;
-    	delQuestion(id);
+    	const {unique,delQuestion}=this.props;
+    	delQuestion(unique);
     }
 
     onTitleChange(e){
-    	const {editQuestion,id}=this.props;
-    	editQuestion(id,{
+    	const {editQuestion,unique}=this.props;
+    	editQuestion(unique,{
     		title:e.target.value
     	}); 
     }
 
     onOptChange(e){
     	const target=e.target;
-        const {editQuestion,options,id}=this.props;
+        const {editQuestion,options,unique}=this.props;
     	if(target.nodeName==='INPUT'){
     		let idx=target.getAttribute('data-index');
     		let value=target.value;
-    		editQuestion(id,{
+    		editQuestion(unique,{
     			options:options.map((item,index)=>index==idx?value:item)
     		}); 
     	}        
     }
 
     onAdd(){
-        const {editQuestion,id,options}=this.props;
-        editQuestion(id,{
+        const {editQuestion,unique,options}=this.props;
+        editQuestion(unique,{
     	   options:[...options,'']
     	}); 
     }

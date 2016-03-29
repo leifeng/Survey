@@ -9,7 +9,7 @@ import * as actions from '../../actions/adminActions';
 const source={
     beginDrag(props){
         return {
-            id:props.id,
+            unique:props.unique,
             index:props.index
         }
     }
@@ -64,11 +64,11 @@ export default class FillIn extends Component{
 
 	render(){
         const {isDragging,connectDragSource,connectDropTarget}=this.props;
-		const {title}=this.props;
+		const {title,index}=this.props;
         return connectDragSource(connectDropTarget(
         	<div className="panel">
         		<div className="title">
-        		填空题
+        		{index+1}.填空题
         		<Tooltip placement="rightBottom" title="删除"><a className="del" onClick={this.onDelQ}><Icon type="cross-circle-o" /></a></Tooltip>
         		
         		</div>
@@ -80,13 +80,13 @@ export default class FillIn extends Component{
 	}
 
 	onDelQ(){
-        const {id,delQuestion}=this.props;
-        delQuestion(id);
+        const {unique,delQuestion}=this.props;
+        delQuestion(unique);
     }
 
     onTitleChange(e){
-        const {editQuestion,id}=this.props;
-        editQuestion(id,{
+        const {editQuestion,unique}=this.props;
+        editQuestion(unique,{
             title:e.target.value
         }); 
     }

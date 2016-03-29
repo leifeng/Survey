@@ -3,7 +3,7 @@ import {
 }
 from 'redux';
 import {
-	ADD_QUESTION, EDIT_QUESTION, DEL_QUESTION, EDIT_ORDER, EDIT_TITLE, UPDATE_ORDERS, UPDATE_QUESTION,SET_SID,UPDATE_LOAD
+	ADD_QUESTION, EDIT_QUESTION, DEL_QUESTION, EDIT_ORDER, EDIT_TITLE, UPDATE_ORDERS, UPDATE_QUESTION,SET_SID,UPDATE_LOAD,UPDATE_OPTIONS
 }
 from '../actions/adminActions.js';
 import update from 'react/lib/update';
@@ -41,7 +41,7 @@ import update from 'react/lib/update';
 // }
 
 const initState={
-	sid:0,
+	sid:1,
 	title:'',
 	options:{},
 	questions:[]
@@ -57,10 +57,10 @@ const questions = (state = initState.questions, action = null) => {
 			return [...state, action.option];
 		case EDIT_QUESTION:
 			const op = action.option;
-			return state.map(item => item.id === action.id ? Object.assign({}, item, op) : item);
+			return state.map(item => item.unique === action.id ? Object.assign({}, item, op) : item);
 		case DEL_QUESTION:
 			return state.filter(item => {
-				return item.id !== action.id
+				return item.unique !== action.id
 			});
 		case UPDATE_QUESTION:
 			return update(state, {
@@ -84,10 +84,17 @@ const title = (state = initState.title, action = null) => {
 }
 
 const options=(state=initState.options,action=null)=>{
-	return state;
+	switch(action.type){
+		case UPDATE_OPTIONS:
+			const op={};
+			op[action.name]=action.value;
+			return Object.assign({},state,op);
+		default:
+			return state;
+	}
 }
 
-const sid=(state=0,action=null)=>{
+const sid=(state=initState.sid,action=null)=>{
 	switch(action.type){
 		case SET_SID:
 			return action.sid;
