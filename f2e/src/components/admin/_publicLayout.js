@@ -67,7 +67,7 @@ export default class PublicLayout extends Component{
 
 	render() {
         const {isDragging,connectDragSource,connectDropTarget}=this.props;
-		const {title,options,txt,type,index}=this.props;
+		const {title,answers,txt,type,index}=this.props;
         const opacity = isDragging ? 0 : 1;
         return connectDragSource(connectDropTarget(
         	<div className="panel" style={{opacity}}>
@@ -77,9 +77,9 @@ export default class PublicLayout extends Component{
         		</div>
 	            <div className="question">
 	                <Input id="defaultInput" placeholder="标题" onChange={this.onTitleChange} value={title}/>
-	                <ul onChange={this.onOptChange} className="list"  onClick={this.onDelOpt}>
-	                	 {options.map((item,index)=>{
-	                		return <li key={index}><Icon type="minus-circle-o" data-index={index}/><input type="text" value={item} data-index={index}/></li>
+	                <ul className="list"  onClick={this.onDelOpt}>
+	                	 {answers.map((item,index)=>{
+	                		return <li key={index}><Icon type="minus-circle-o" data-index={index}/><input type="text" value={item} data-index={index} onChange={this.onOptChange}/></li>
 	                	})}
 	                </ul>	               
 	                <Button type="primary" onClick={this.onAdd} size="small"><Icon type="plus-circle-o" />添加</Button>
@@ -89,44 +89,45 @@ export default class PublicLayout extends Component{
     }
 
     onDelOpt(e){
-    	const {editQuestion,unique,options}=this.props;
+    	const {editQuestion,unique,answers,id}=this.props;
     	const target=e.target;
     	if(target.nodeName==='I'){
     		const idx=target.getAttribute('data-index')-0;
-    		editQuestion(unique,{
-    			options:options.filter((item,index)=>index!==idx)
+    		editQuestion(id+unique,{
+    			answers:answers.filter((item,index)=>index!==idx)
     		})
     	}
     }
 
     onDelQ(){
-    	const {unique,delQuestion}=this.props;
-    	delQuestion(unique);
+    	const {unique,delQuestion,id,delId}=this.props;
+        if(id) delId(id);        
+    	delQuestion(id+unique);
     }
 
     onTitleChange(e){
-    	const {editQuestion,unique}=this.props;
-    	editQuestion(unique,{
+    	const {editQuestion,unique,id}=this.props;
+    	editQuestion(id+unique,{
     		title:e.target.value
     	}); 
     }
 
     onOptChange(e){
     	const target=e.target;
-        const {editQuestion,options,unique}=this.props;
+        const {editQuestion,answers,unique,id}=this.props;
     	if(target.nodeName==='INPUT'){
     		let idx=target.getAttribute('data-index');
     		let value=target.value;
-    		editQuestion(unique,{
-    			options:options.map((item,index)=>index==idx?value:item)
+    		editQuestion(id+unique,{
+    			answers:answers.map((item,index)=>index==idx?value:item)
     		}); 
     	}        
     }
 
     onAdd(){
-        const {editQuestion,unique,options}=this.props;
-        editQuestion(unique,{
-    	   options:[...options,'']
+        const {editQuestion,unique,answers,id}=this.props;
+        editQuestion(id+unique,{
+    	   answers:[...answers,'']
     	}); 
     }
 
@@ -134,7 +135,7 @@ export default class PublicLayout extends Component{
 
 function mapStateToProps(state) {
     return {
-        questions: state.questions
+        questions: state.initData.questions
     }
 }
 

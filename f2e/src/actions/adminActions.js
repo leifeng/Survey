@@ -1,31 +1,46 @@
 
 import fetch from 'isomorphic-fetch';
-//import fetchJsonp  from "fetch-jsonp";
+
+export const INIT_QUESTION='INIT_QUESTION';
 export const ADD_QUESTION = 'ADD_QUESTION';
 export const EDIT_QUESTION = 'EDIT_QUESTION';
 export const DEL_QUESTION = 'DEL_QUESTION';
 export const UPDATE_QUESTION='UPDATE_QUESTION';
-
+export const DELID='DELID';
 export const EDIT_TITLE='EDIT_TITLE';
 
 export const SET_SID='SET_SID';
 //view
 export const UPDATE_LOAD='UPDATE_LOAD';
-export const UPDATE_OPTIONS='UPDATE_OPTIONS';
+export const UPDATE_SETTING='UPDATE_SETTING';
 
-
-export const addQuestion=(option)=>{
-		return{
-			type:ADD_QUESTION,
-			option
-		}
+export const initQuestion=(data)=>{
+	return{
+		type:INIT_QUESTION,
+		data
+	}
 }
 
-export const editQuestion=(id,option)=>{
+export const getQuestion=(id)=>{
+	return dispatch=>{
+		return fetch('/admin/json/survey?sid='+id)
+		.then(res=>res.json())
+		.then(json=>dispatch(initQuestion(json)));
+	}
+}
+
+export const addQuestion=(question)=>{
+	return{
+		type:ADD_QUESTION,
+		question
+	}
+}
+
+export const editQuestion=(id,question)=>{
 	return{
 		type:EDIT_QUESTION,
 		id,
-		option
+		question
 	}
 }
 
@@ -33,6 +48,12 @@ export const delQuestion=(id)=>{
 	return{
 		type:DEL_QUESTION,
 		id
+	}
+}
+export const delId=(delID)=>{
+	return{
+		type:DELID,
+		delID
 	}
 }
 
@@ -54,10 +75,10 @@ export const editTitle=(title)=>{
 }
 
 
-export const setSid=(sid)=>{
+export const setSid=(id)=>{
 	return {
 		type:SET_SID,
-		sid
+		id
 	}
 }
 
@@ -76,7 +97,7 @@ export const postSurvey=()=>{
 			    'Accept': 'application/json',
 			    'Content-Type': 'application/json'
 			  },
-			body: JSON.stringify(getState())
+			body: JSON.stringify(getState().initData)
 		})
 		.then(res=>res.json())
 		.then(json=>{
@@ -90,9 +111,9 @@ export const postSurvey=()=>{
 	}
 }
 
-export const updateOptions=(name,value)=>{
+export const updateSetting=(name,value)=>{
 	return {
-		type:UPDATE_OPTIONS,
+		type:UPDATE_SETTING,
 		name,
 		value
 	}

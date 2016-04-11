@@ -1,14 +1,15 @@
 var path = require('path');
 var webpack = require('webpack');
-
+var ExtractTextPlugin = require("extract-text-webpack-plugin");
 module.exports = {
     entry: './src/admin.js',
     output: {
         path: path.join(__dirname, 'dist'),
-        filename: 'bundle.js',
+        filename: 'fb.js',
         publicPath: '/dist/'
     },
     plugins: [
+        new ExtractTextPlugin("fb.css"),
         new webpack.NoErrorsPlugin(),
         new webpack.DefinePlugin({
             'process.env': {
@@ -27,15 +28,12 @@ module.exports = {
             test: /\.js$/,
             loaders: ['babel'],
             exclude: /node_modules/
-        },
-        {
+        }, {
             test: /\.css$/,
-            loaders: ['style', 'css']
-        },
-        {
-            test:/\.scss$/,
-            loaders:['style','css','sass']
-        }
-        ]
+            loader: ExtractTextPlugin.extract("style-loader", "css-loader")
+        }, {
+            test: /\.scss$/,
+            loader: ExtractTextPlugin.extract("style-loader", "css-loader!sass-loader")
+        }]
     }
 };

@@ -20,15 +20,16 @@ export default class DragMain extends Component{
 		return(
 			<div>
                     {questions.map((item,index)=>{
-                        switch(item.type-0){
+                        const key=item.id+(item.unique?item.unique:'');
+                        switch(item.kind-0){
                                 case 1:
-                                    return <PublicLayout key={item.unique} {...item} index={index} txt="单选题"  onMove={this.onMove}/>;
+                                    return <PublicLayout key={key} {...item} index={index} txt="单选题"  onMove={this.onMove}/>;
                                 case 2:
-                                    return <PublicLayout key={item.unique} {...item} index={index} txt="多选题"  onMove={this.onMove} />;
+                                    return <PublicLayout key={key} {...item} index={index} txt="多选题"  onMove={this.onMove} />;
                                 case 3:
-                                    return <FillIn key={item.unique} {...item} index={index} txt="填空题"  onMove={this.onMove} />;
+                                    return <FillIn key={key} {...item} index={index} txt="填空题"  onMove={this.onMove} />;
                                 case 4:
-                                    return <PublicLayout key={item.unique} {...item} index={index} txt="排序选题" onMove={this.onMove}/>;
+                                    return <PublicLayout key={key} {...item} index={index} txt="排序选题" onMove={this.onMove}/>;
                                 default:
                                     return null;
                         }
@@ -38,7 +39,7 @@ export default class DragMain extends Component{
 	}
 
 	onMove(dragIndex,hoverIndex){
-		const {questions,updateQuestion}=this.props;
+		const {questions,updateQuestion}=this.props;      
 		const dragQ=questions[dragIndex];
 		updateQuestion(dragIndex,hoverIndex,dragQ);
 	}
@@ -46,7 +47,7 @@ export default class DragMain extends Component{
 
 function mapStateToProps(state) {
     return {
-        questions: state.questions
+        questions: state.initData.questions
     }
 }
 

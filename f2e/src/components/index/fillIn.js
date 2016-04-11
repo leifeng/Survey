@@ -15,7 +15,7 @@ export default class FillIn extends Component {
         const {title,index}=this.props;
         return (
             <div className="question">
-                <div className="qt">{index-0+1}. {title}</div>
+                <div className="qt">{index-0+1} {title}</div>
                 <Input placeholder="填入答案" onChange={this.onChange}/>
 
             </div>

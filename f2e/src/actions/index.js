@@ -1,4 +1,10 @@
 var a = {
+    id: 1,
+    title: '',
+    createTime: '',
+    endTime: '',
+    status: '',
+    author: '',
     style: {
         bgColor: '#fff',
         title: {
@@ -15,65 +21,69 @@ var a = {
         share: true
     },
     //页面请求来的题
-    question: [
-        {
-            type: 1,
-            id: 1000,
-            title: '这是单选问题',
-            options: ['选项1', '选项2', '选项3']
-        }, {
-            type: 2,
-            id: 10001,
-            title: '这是多选问题',
-            options: ['选项1', '选项2', '选项3']
-        }, {
-            type: 3,
-            id: 10002,
-            title: '这是填空题'
-        }, {
-            type: 4,
-            id: 10003,
-            title: '排序题',
-            options: ['第一', '第二', '第三']
-        }
-    ]
+    questions: [{
+        kind: 1,
+        id: 1000,
+        title: '这是单选问题',
+        answers: ['选项1', '选项2', '选项3']
+    }, {
+        kind: 2,
+        id: 10001,
+        title: '这是多选问题',
+        answers: ['选项1', '选项2', '选项3']
+    }, {
+        kind: 3,
+        id: 10002,
+        title: '这是填空题'
+    }, {
+        kind: 4,
+        id: 10003,
+        title: '排序题',
+        answers: ['第一', '第二', '第三']
+    }]
 };
 //发送到后台答案
-var answer = {
-    a_1000: true
-} [
-    {id: 1000, value: '选项1'},
-    {id: 1001, value: '选项1,选项3'},
-    {id: 1003, value: '填空题答案是xxxxxxx'},
-    {id: 1004, value: ['第三', '第一', '第三']}
-    ];
+var answer = [{
+    id: 1000,
+    value: '选项1'
+}, {
+    id: 1001,
+    value: '选项1,选项3'
+}, {
+    id: 1003,
+    value: '填空题答案是xxxxxxx'
+}, {
+    id: 1004,
+    value: ['第三', '第一', '第三']
+}];
 
 
 import fetch from 'isomorphic-fetch';
 
-export const GET_QUESTION = 'GET_QUESTION';
-export const SET_QUESTION = 'SET_QUESTION';
 
+export const INIT_SURVEY = 'INIT_SURVEY';
 export const SET_VALUE = 'SET_VALUE';
 
-export const SET_INDEX_INFO = 'SET_INDEX_INFO';
 
-export const getQuestionData = ()=> {
-    return dispatch=> {
-        return fetch('/data').
-            then(res=>res.json()).
-            then(json=>dispatch(setQuestion(json)))
-    }
-};
-
-export const setQuestion = (question)=> {
+//设置问卷数据
+export const initSurvey = (data) => {
     return {
-        type: SET_QUESTION,
-        question
+        type: INIT_SURVEY,
+        data
+    }
+}
+
+//异步获取数据
+export const getQuestionData = () => {
+    return dispatch => {
+        return fetch('/app/survey/').
+        then(res => res.json()).
+        then(json => dispatch(initSurvey(json)))
     }
 };
 
-export const setAnswerValue = (id, value)=> {
+//设置答案
+export const setAnswerValue = (id, value) => {
     return {
         type: SET_VALUE,
         id,
@@ -81,3 +91,16 @@ export const setAnswerValue = (id, value)=> {
     }
 };
 
+//发送答案
+export const postAnswer = () => {
+    return (dispatch, getState) => {
+        return fetch('/', {
+            method: 'post',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(getState())
+        }).then(req=>req.json).then(json=>{console.log(json)})
+    }
+}

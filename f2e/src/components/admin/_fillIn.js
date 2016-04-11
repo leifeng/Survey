@@ -68,25 +68,26 @@ export default class FillIn extends Component{
         return connectDragSource(connectDropTarget(
         	<div className="panel">
         		<div className="title">
-        		{index+1}.填空题
+        		{index+1}.问答题
         		<Tooltip placement="rightBottom" title="删除"><a className="del" onClick={this.onDelQ}><Icon type="cross-circle-o" /></a></Tooltip>
         		
         		</div>
 	            <div className="question">
-	                <Input id="defaultInput" placeholder="问题" onChange={this.onTitleChange} value={title}/>
+	                <Input id="defaultInput" placeholder="问题" onChange={this.onTitleChange} defaultValue={title}/>
 	            </div>
             </div>
         ));
 	}
 
 	onDelQ(){
-        const {unique,delQuestion}=this.props;
-        delQuestion(unique);
+        const {unique,delQuestion,id,delId}=this.props;
+        if(id) delId(id);
+        delQuestion(id+unique);
     }
 
     onTitleChange(e){
-        const {editQuestion,unique}=this.props;
-        editQuestion(unique,{
+        const {editQuestion,unique,id}=this.props;
+        editQuestion(id+unique,{
             title:e.target.value
         }); 
     }
@@ -94,7 +95,7 @@ export default class FillIn extends Component{
 
 function mapStateToProps(state) {
     return {
-        questions: state.questions
+          questions: state.initData.questions
     }
 }
 

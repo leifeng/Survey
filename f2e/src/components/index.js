@@ -35,7 +35,7 @@ class Index extends Component {
                                 return null;
                         }
                     })}
-                     <Button type="primary" size="large">提交</Button>
+                    <Button type="primary" size="large">提交</Button>
                 </div>
             </div>
         )
@@ -49,8 +49,8 @@ class Index extends Component {
 
 function mapStateToProps(state) {
     return {
-        question: state.question,
-        index:state.indexInfo
+        question: state.initData.questions,
+        initData:state.initData
     }
 }
 
