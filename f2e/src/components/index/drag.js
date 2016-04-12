@@ -12,10 +12,10 @@ class GragItem extends Component {
     }
 
     render() {
-        const {options} = this.props;
+        const {answers} = this.props;
         return (
             <div className='dragula'>
-                {options.map((item, index) => {
+                {answers.map((item, index) => {
                     return <div key={index}  data-value={item}>{item}</div>
                 })} 
             </div>
@@ -45,11 +45,11 @@ export default class Grag extends Component {
     }
 
     render() {
-        const {title, options,index,setValue,id} = this.props;
+        const {title, answers,index,setValue,id} = this.props;
         return (
             <div className="question">
                 <div className="qt">{index-0+1}.{title} </div>
-                <GragItem options = {options} setValue={setValue} id={id}/> 
+                <GragItem answers = {answers} setValue={setValue} id={id}/> 
             </div>
         )
     }

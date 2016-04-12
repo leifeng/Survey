@@ -3,7 +3,13 @@ var express = require('express');
 var webpack = require('webpack');
 var config = require('./webpack.config.dev');
 var app = express();
+var bodyParser = require('body-parser')
 var compiler = webpack(config);
+
+// parse application/x-www-form-urlencoded 
+app.use(bodyParser.urlencoded({ extended: false })) 
+// parse application/json 
+app.use(bodyParser.json())
 
 app.use(require('webpack-dev-middleware')(compiler, {
     noInfo: true,
@@ -109,7 +115,10 @@ app.get('/app/survey/', function(req, res) {
         }]
     })
 });
-
+app.post('/admin/post/survey/edit',function(req,res){
+    console.log(req.body);
+    res.json({msg:'OK'});
+})
 app.get('*', function(req, res) {
     res.sendFile(path.join(__dirname, 'index.html'));
 });

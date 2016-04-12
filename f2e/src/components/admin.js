@@ -1,7 +1,7 @@
 import React,{Component} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {Button,Input,Icon,Row,Col,DatePicker,Checkbox } from 'antd';
+import {Button,Input,Icon,Row,Col,DatePicker,Checkbox,notification  } from 'antd';
 import DragMain from './admin/dragMain.js';
 import * as actions from '../actions/adminActions';
 
@@ -52,9 +52,9 @@ class Admin extends Component {
                             <div className="targetQ">
                                 <DragMain/>
                             </div>
-                            <Button type="primary" size="large" loading={loading} onClick={this.onPost}>
-                            保存
-                            </Button>
+                            <Button data-s="1" type="primary" size="large" loading={loading} onClick={this.onPost}><Icon type="save" /> 保存</Button>
+                            &nbsp;
+                            <Button data-s="2" type="primary" size="large" loading={loading} onClick={this.onPost}><Icon type="export" /> 保存并发布</Button>
                         </div>
                     </Col>
                     <Col span="4" offset="1">
@@ -124,9 +124,21 @@ class Admin extends Component {
         });
     }
 
-    onPost(){
-        const {postSurvey}=this.props;
-        postSurvey();
+    onPost(e){
+        const target=e.target;console.log(target)
+        const {postSurvey,updateLoad,initData}=this.props;
+        const btnClick=()=>{
+            window.open('http://www.d169.cc:8080/wj.html?id='+initData.id)
+        }
+        const btn=(<Button type="primary" size="small" onClick={btnClick}>点击查看</Button>);
+        updateLoad(true);
+        postSurvey(e.target.getAttribute('data-s')-0,(type)=>{
+            notification.open({
+                message: '保存成功',
+                description: '',
+                btn
+            });
+        });
     }
 
 }

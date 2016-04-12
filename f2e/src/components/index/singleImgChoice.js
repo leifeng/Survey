@@ -14,12 +14,12 @@ export default class SingleImgChoice extends Component {
     }
 
     render() {
-        const {title,options,index}=this.props;
+        const {title,answers,index}=this.props;
         return (
             <div className="question">
                 <div className="qt">{index-0+1}. {title}</div>
                 <RadioGroup onChange={this.onChange} >
-                    {options.map((item,index)=>{
+                    {answers.map((item,index)=>{
                         return  <Radio key={index} value={item}><img src="https://p1.ssl.qhimg.com/t01fe63a285d1036c3c.jpg"/></Radio>
                     })}
                 </RadioGroup>

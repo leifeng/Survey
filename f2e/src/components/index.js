@@ -8,19 +8,28 @@ import MultiSelect from './index/multiSelect.js';
 import FillIn from './index/fillIn.js';
 import Grag from './index/drag.js';
 import * as actions from '../actions'
+
+const getQuery=(name)=>{
+    const reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+    const r = window.location.search.substr(1).match(reg);
+    if (r !== null) return encodeURI(r[2]);
+    return null;
+}
+
 class Index extends Component {
     constructor(props) {
         super(props);
+        this.onPost=this.onPost.bind(this);
     }
 
     render() {
-        const {question,setAnswerValue} =this.props;
+        const {initData,setAnswerValue} =this.props;
         return (
             <div>
                 <h1 className="title">标题</h1>
                 <div className="main">
-                    {question.map((item,index)=> {
-                        switch (item.type) {
+                    {initData.questions.map((item,index)=> {
+                        switch (item.kind) {
                             case 1:
                                 return <SingleChoice {...item} index={index} setValue={(id,value)=>setAnswerValue(id,value)} />;
                             case 2:
@@ -35,21 +44,27 @@ class Index extends Component {
                                 return null;
                         }
                     })}
-                    <Button type="primary" size="large">提交</Button>
+                    <Button type="primary" size="large" onClick={this.onPost}>提交</Button>
                 </div>
             </div>
         )
     }
 
     componentDidMount() {
-        const {getQuestionData}=this.props;
-        getQuestionData();
+        const {getQuestionData,setId}=this.props;
+        const id=getQuery('id')
+        getQuestionData(id);
+        setId(id)
+    }
+
+    onPost(){
+        const {postAnswer} =this.props;
+        postAnswer();
     }
 }
 
 function mapStateToProps(state) {
     return {
-        question: state.initData.questions,
         initData:state.initData
     }
 }

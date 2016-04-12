@@ -89,7 +89,7 @@ export const updateLoad=(load)=>{
 	}
 }
 
-export const postSurvey=()=>{
+export const postSurvey=(status,cb)=>{
 	return (dispatch,getState)=>{
 		fetch('/admin/post/survey/edit',{
 			method: 'post',
@@ -97,12 +97,13 @@ export const postSurvey=()=>{
 			    'Accept': 'application/json',
 			    'Content-Type': 'application/json'
 			  },
-			body: JSON.stringify(getState().initData)
+			body:JSON.stringify(Object.assign({},getState().initData,{status:status}))
 		})
 		.then(res=>res.json())
 		.then(json=>{
-			if(json.msg){
+			if(json.msg==='OK'){
 				dispatch(updateLoad(false))
+				cb('success');
 			}
 		})
 		.catch(ex=>{
