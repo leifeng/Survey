@@ -23,7 +23,9 @@ export const initQuestion=(data)=>{
 
 export const getQuestion=(id)=>{
 	return dispatch=>{
-		return fetch('/admin/json/survey?sid='+id)
+		return fetch('/admin/survey/get/'+id,{
+			credentials: 'same-origin'
+		})
 		.then(res=>res.json())
 		.then(json=>dispatch(initQuestion(json)));
 	}
@@ -91,12 +93,13 @@ export const updateLoad=(load)=>{
 
 export const postSurvey=(status,cb)=>{
 	return (dispatch,getState)=>{
-		fetch('/admin/post/survey/edit',{
+		fetch('/admin/survey/edit',{
 			method: 'post',
 			  headers: {
 			    'Accept': 'application/json',
 			    'Content-Type': 'application/json'
 			  },
+			credentials: 'same-origin',
 			body:JSON.stringify(Object.assign({},getState().initData,{status:status}))
 		})
 		.then(res=>res.json())
