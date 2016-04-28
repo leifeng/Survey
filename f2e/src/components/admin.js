@@ -73,7 +73,9 @@ class Admin extends Component {
     componentDidMount() { 
         const {getQuestion}=this.props;     
         const sid=getQuery('sid');
-        getQuestion(sid);
+        if(sid){
+            getQuestion(sid);
+        }        
     }
 
     disabledEndDate(endTime) {

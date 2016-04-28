@@ -16,7 +16,7 @@ export default class FillIn extends Component {
         return (
             <div className="question">
                 <div className="qt">{index-0+1} {title}</div>
-                <Input placeholder="填入答案" onChange={this.onChange}/>
+                答：<Input placeholder="填入答案" onChange={this.onChange}/>
 
             </div>
         )

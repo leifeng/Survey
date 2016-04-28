@@ -1,14 +1,21 @@
 import {combineReducers} from 'redux';
-import {SET_QUESTION,SET_VALUE,SET_INDEX_INFO,INIT_SURVEY,SET_ID} from '../actions/index.js';
+import {SET_QUESTION,SET_VALUE,SET_INDEX_INFO,INIT_SURVEY,SET_ID,UPDATE_MSG} from '../actions/index.js';
 
 const initState={
-	questions:[]
+	questions:[],
+	author:'',
+	num:0
+
 };
 const answerState={
 	id:'',
 	data:[]
 };
-
+const postResultState={
+	err:'success',
+	msg:'',
+	hidden:1
+}
 const initData=(state=initState,action=null)=>{
 	switch(action.type){
 		case INIT_SURVEY:
@@ -31,8 +38,18 @@ const answers=(state=answerState,action=null)=>{
 	}
 }
 
+const postResult=(state=postResultState,action=null)=>{
+	switch(action.type){
+		case UPDATE_MSG:
+			return Object.assign({},action.data)
+		default:
+			return state;
+	}
+}
+
 const surveyReducers = combineReducers({
     initData,
-    answers
+    answers,
+    postResult
 });
 module.exports = surveyReducers;

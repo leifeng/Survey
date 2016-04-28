@@ -70,7 +70,7 @@ app.get('/admin/json/survey', function(req, res) {
         "style": null
     })
 });
-app.get('/app/survey/', function(req, res) {
+app.get('/app/survey/:id', function(req, res) {
     res.json({
         id: 1,
         title: '',
@@ -122,7 +122,9 @@ app.post('/admin/post/survey/edit',function(req,res){
 app.get('*', function(req, res) {
     res.sendFile(path.join(__dirname, 'index.html'));
 });
-
+app.post('/app/post/answer',function(req,res){
+    res.json({errnum:1,errmsg:'asdfasdfasdf'})
+})
 app.listen(3000, 'localhost', function(err) {
     if (err) {
         console.log(err);
