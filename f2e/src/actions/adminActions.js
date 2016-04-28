@@ -23,7 +23,7 @@ export const initQuestion=(data)=>{
 
 export const getQuestion=(id)=>{
 	return dispatch=>{
-		return fetch('/admin/survey/get/'+id,{
+		return fetch('/admin/survey/get/sid/'+id,{
 			credentials: 'same-origin'
 		})
 		.then(res=>res.json())

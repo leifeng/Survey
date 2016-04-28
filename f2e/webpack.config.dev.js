@@ -4,7 +4,7 @@ var webpack = require('webpack');
 module.exports = {
     entry: [
         'webpack-hot-middleware/client',
-        './src/admin.js'
+        './src/index.js'
     ],
     output: {
         path: path.join(__dirname, 'dist'),

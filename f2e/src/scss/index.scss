@@ -2,33 +2,53 @@ body{
 	font-size:62.5%;
 }
 .title{
-	margin-top:30px;
 	text-align:center;
-	font-size:2em;
+	font-size:3em;
+	padding:5px;
+	border-bottom:2px solid #2DB7F5;
+	margin-bottom:20px;
+}
+.subtitle{
+	text-align:right;
 }
 .main{
 	width:80%;
-	margin:0 auto;
+	margin:20px auto;
+	border: 1px solid #E9E9E9;
+    box-shadow: 0px 0px 1px 0px #BDBBBB;
+    border-radius: 4px;
+    padding: 20px;
 	.question{
-		margin-top: 25px;		
+		margin-top: 15px;		
 	}
 	.qt{
-		margin:0 0 10px 0;
+    margin: 0 0 15px 0;
+    font-size: 16px;
+    font-weight: bold;
 	}
 }
 .dragula{
    div{
-   	line-height: 24px;
+	line-height: 24px;
     border: 1px dashed #d3d3d3;
-    margin-bottom: 4px;
+    margin-bottom: 10px;
     cursor: move;
-    width: 30%;
+    width: 200px;
     word-break: break-all;
+    text-align: center;
    }
 }
 input[type=text]{
 	width:40%;
 }
-button{
+.btnList{
 	margin-top:50px;
+	overflow:hidden;
+	div{
+		float:left;
+	}
+	div:nth-child(2){
+		margin-left: 10px;
+		display: inline;
+	}
 }

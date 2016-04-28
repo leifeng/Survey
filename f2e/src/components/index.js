@@ -1,7 +1,7 @@
 import React,{Component} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {Button} from 'antd';
+import {Button,Alert,Row,Col} from 'antd';
 import SingleChoice from './index/singleChoice.js';
 import SingleImgChoice from './index/singleImgChoice.js'
 import MultiSelect from './index/multiSelect.js';
@@ -23,11 +23,14 @@ class Index extends Component {
     }
 
     render() {
-        const {initData,setAnswerValue} =this.props;
+        const {initData,setAnswerValue,postResult} =this.props;
+        const msg=postResult.hidden===0?(<Alert message={postResult.msg} type={postResult.err} showIcon />):null;
         return (
             <div>
-                <h1 className="title">标题</h1>
+           
                 <div className="main">
+                     <h1 className="title">标题</h1>
+                     <h4 className="subtitle">发布人：{initData.author}  共 {initData.num} 人参与</h4>
                     {initData.questions.map((item,index)=> {
                         switch (item.kind) {
                             case 1:
@@ -44,7 +47,11 @@ class Index extends Component {
                                 return null;
                         }
                     })}
-                    <Button type="primary" size="large" onClick={this.onPost}>提交</Button>
+                       <div className="btnList">
+                        <div><Button type="primary" size="large" onClick={this.onPost}>提交</Button></div>
+                          <div> {msg}</div>
+                       </div> 
+                   
                 </div>
             </div>
         )
@@ -52,7 +59,7 @@ class Index extends Component {
 
     componentDidMount() {
         const {getQuestionData,setId}=this.props;
-        const id=getQuery('id')
+        const id=getQuery('id');
         getQuestionData(id);
         setId(id)
     }
@@ -65,7 +72,8 @@ class Index extends Component {
 
 function mapStateToProps(state) {
     return {
-        initData:state.initData
+        initData:state.initData,
+        postResult:state.postResult
     }
 }
 

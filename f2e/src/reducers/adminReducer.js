@@ -8,28 +8,10 @@ import {
 from '../actions/adminActions.js';
 import update from 'react/lib/update';
 
-// {
-// 	id: 123, //问卷id,
-// 	title:'',
-// 	setting:{
-// 		endTime:'',
-//		collections:100,
-// 		ipConfine:true,
-// 		isRepeat:true,
-// 		requireLogin:true
-// 	}
-// 	questions: [{
-//		id:1
-// 		kind: 1, //题型
-// 		title: '这是单选问题', //问题
-// 		answers: ['选项1', '选项2', '选项3'], //选项
-// 		listOrder: 1 //排序
-// 	},
-//	delId:[1,2,3]
-// }
+
 
 const initState = {
-	id: 1,
+	id: '',
 	title: '',
 	setting: {
 		endTime: '',
@@ -94,60 +76,6 @@ const initData = (state = initState, action = null) => {
 			return state;
 	}
 }
-
-// const questions = (state = initState.questions, action = null) => {
-// 	switch (action.type) {
-// 		case ADD_QUESTION:
-// 			console.log('questions', action.option)
-// 			return [...state, action.option];
-// 		case EDIT_QUESTION:
-// 			const op = action.option;
-// 			return state.map(item => item.unique === action.id ? Object.assign({}, item, op) : item);
-// 		case DEL_QUESTION:
-// 			return state.filter(item => {
-// 				return item.unique !== action.id
-// 			});
-// 		case UPDATE_QUESTION:
-// 			return update(state, {
-// 				$splice: [
-// 					[action.dragIndex, 1],
-// 					[action.hoverIndex, 0, action.dragQ]
-// 				]
-// 			});
-// 		default:
-// 			return state;
-// 	}
-// }
-
-// const title = (state = initState.title, action = null) => {
-// 	switch (action.type) {
-// 		case EDIT_TITLE:
-// 			return action.title;
-// 		default:
-// 			return state;
-// 	}
-// }
-
-// const setting = (state = initState.setting, action = null) => {
-// 	switch (action.type) {
-// 		case UPDATE_OPTIONS:
-// 			const op = {};
-// 			op[action.name] = action.value;
-// 			return Object.assign({}, state, op);
-// 		default:
-// 			return state;
-// 	}
-// }
-
-// const id = (state = initState.id, action = null) => {
-// 	switch (action.type) {
-// 		case SET_SID:
-// 			return action.id;
-// 		default:
-// 			return state;
-// 	}
-
-// }
 
 const loading = (state = view.loading, action) => {
 	switch (action.type) {
