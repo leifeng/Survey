@@ -18,7 +18,7 @@ export const getQuestionData = (id) => {
     return dispatch => {
         return fetch('/index/get/sid/'+id).
         then(res => res.json()).
-        then(json => dispatch(initSurvey(json)))
+        then(json => dispatch(initSurvey(json.data)))
     }
 };
 
@@ -39,7 +39,7 @@ export const setId=(id)=>{
 }
 
 //发送答案
-export const postAnswer = () => {    
+export const postAnswer = () => {
     return (dispatch, getState) => {
         return fetch('/index/add', {
             method: 'post',

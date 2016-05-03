@@ -14,12 +14,12 @@ export default class SingleChoice extends Component {
     }
 
     render() {
-        const {title,answers,index}=this.props;
+        const {title,options,index}=this.props;
         return (
             <div className="question">
                 <div className="qt">{index-0+1}. {title}</div>
                 <RadioGroup onChange={this.onChange} >
-                    {answers.map((item,index)=>{
+                    {options.map((item,index)=>{
                         return  <Radio key={index} value={item}>{item}</Radio>
                     })}
                 </RadioGroup>

@@ -4,8 +4,8 @@
   "description": "问卷系统",
   "main": "index.js",
   "scripts": {
-    "build:webpack1": "set NODE_ENV=production && webpack  --config webpack.config.prod.wj.js --progress  --colors --profile ",
-    "build:webpack2": "set NODE_ENV=production && webpack  --config webpack.config.prod.admin.js --progress  --colors --profile ",
+    "build:webpack1": "export NODE_ENV=production && webpack  --config webpack.config.prod.wj.js --progress  --colors --profile ",
+    "build:webpack2": "export NODE_ENV=production && webpack  --config webpack.config.prod.admin.js --progress  --colors --profile ",
     "start": "node server.js",
     "build1": "npm run build:webpack1",
     "build2": "npm run build:webpack2"

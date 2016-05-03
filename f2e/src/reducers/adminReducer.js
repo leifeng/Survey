@@ -13,13 +13,11 @@ import update from 'react/lib/update';
 const initState = {
 	id: '',
 	title: '',
-	setting: {
-		endTime: '',
-		collections: '',
-		ipConfine: false,
-		isRepeat: false,
-		requireLogin: false
-	},
+	anonymous:1,
+	endTime:0,
+	collections:0,
+	ipConfine:0,
+	isRepeat:1,
 	questions: [],
 	delId: []
 };

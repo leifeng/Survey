@@ -42,7 +42,7 @@ class Admin extends Component {
                                 <li><Button type="dashed" data-type="1" size="large"><Icon type="plus-circle-o" />单选题</Button></li>
                                 <li><Button type="dashed" data-type="2" size="large"><Icon type="check-circle-o" />多选题</Button></li>
                                 <li><Button type="dashed" data-type="3" size="large"><Icon type="question-circle-o" />问答题</Button></li>
-                                <li><Button type="dashed" data-type="4" size="large"><Icon type="bars" />排序题</Button></li>                       
+                                <li><Button type="dashed" data-type="4" size="large"><Icon type="bars" />排序题</Button></li>
                             </ul>
                         </div>
                     </Col>
@@ -60,22 +60,22 @@ class Admin extends Component {
                     <Col span="4" offset="1">
                         <ul className="op">
                             <li><h5>权限设置</h5></li>
-                            <li><DatePicker onChange={this.onChangeEndTime}  placeholder="结束日期" disabledDate={this.disabledEndDate}  value={initData.setting.endTime}/></li>
-                            <li><label><Checkbox checked={initData.setting.requireLogin} onChange={this.onIsLogin} />匿名提交</label></li>
-                            <li><label><Checkbox checked={initData.setting.ipConfine} onChange={this.onIp} />ip限制</label></li>
-                            <li><label><Checkbox checked={initData.setting.isRepeat} onChange={this.onRepeat} />重复提交</label></li>
-                        </ul>          
+                            <li><DatePicker onChange={this.onChangeEndTime}  placeholder="结束日期" disabledDate={this.disabledEndDate}  value={initData.endTime}/></li>
+                            <li><label><Checkbox checked={initData.requireLogin} onChange={this.onIsLogin} />匿名提交</label></li>
+                            <li><label><Checkbox checked={initData.ipConfine} onChange={this.onIp} />ip限制</label></li>
+                            <li><label><Checkbox checked={initData.isRepeat} onChange={this.onRepeat} />重复提交</label></li>
+                        </ul>
                     </Col>
                 </Row>
             </div>
         )
     }
-    componentDidMount() { 
-        const {getQuestion}=this.props;     
+    componentDidMount() {
+        const {getQuestion}=this.props;
         const sid=getQuery('sid');
         if(sid){
             getQuestion(sid);
-        }        
+        }
     }
 
     disabledEndDate(endTime) {
@@ -89,7 +89,7 @@ class Admin extends Component {
 
     onIsLogin(e){
          const {updateSetting}=this.props;
-         updateSetting('requireLogin', e.target.checked);
+         updateSetting('anonymous', e.target.checked?1:0);
     }
 
     onIp(e){
@@ -122,7 +122,8 @@ class Admin extends Component {
             unique:guid(),
             kind:t,
             title:'',
-            answers:[]
+            options:[],
+            answer:''
         });
     }
 
@@ -145,7 +146,7 @@ class Admin extends Component {
 
 }
 
-function mapStateToProps(state) {    
+function mapStateToProps(state) {
     return {
         initData:state.initData,
         loading:state.loading

@@ -27,7 +27,7 @@ export const getQuestion=(id)=>{
 			credentials: 'same-origin'
 		})
 		.then(res=>res.json())
-		.then(json=>dispatch(initQuestion(json)));
+		.then(json=>dispatch(initQuestion(json.data)));
 	}
 }
 
