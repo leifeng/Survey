@@ -1,7 +1,15 @@
-import React,{Component} from 'react';
-import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
-import {Button,Input,Icon,Row,Col,DatePicker,Checkbox,notification  } from 'antd';
+import React from 'react';
+import connect from 'react-redux/lib/components/connect';
+import bindActionCreators from 'redux/lib/bindActionCreators';
+import Button  from "antd/lib/button";
+import Input  from "antd/lib/input";
+import Icon  from "antd/lib/icon";
+import Row  from "antd/lib/row";
+import Col  from "antd/lib/col";
+import DatePicker  from "antd/lib/date-picker";
+import Checkbox  from "antd/lib/checkbox";
+import notification  from "antd/lib/notification";
+
 import DragMain from './admin/dragMain.js';
 import * as actions from '../actions/adminActions';
 
@@ -18,7 +26,7 @@ const getQuery=(name)=>{
     return null;
 }
 
-class Admin extends Component {
+class Admin extends React.Component {
     constructor(props) {
         super(props);
         this.onAddQ=this.onAddQ.bind(this);

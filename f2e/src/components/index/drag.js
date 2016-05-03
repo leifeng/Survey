@@ -1,11 +1,8 @@
-import React, {
-    Component
-}
-from 'react';
+import React from 'react';
 import ReactDom from 'react-dom';
 import dragula from 'react-dragula';
 
-class GragItem extends Component {
+class GragItem extends React.Component {
 
     constructor(props) {
         super(props);
@@ -39,7 +36,7 @@ class GragItem extends Component {
     }
 }
 
-export default class Grag extends Component {
+export default class Grag extends React.Component {
     constructor(props) {
         super(props);
     }

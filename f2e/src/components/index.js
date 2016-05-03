@@ -1,7 +1,12 @@
-import React,{Component} from 'react';
-import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
-import {Button,Alert,Row,Col} from 'antd';
+import React from 'react';
+import connect from 'react-redux/lib/components/connect';
+import bindActionCreators from 'redux/lib/bindActionCreators';
+
+import Button from 'antd/lib/button';
+import Alert from 'antd/lib/alert';
+import Row from 'antd/lib/row';
+import Col from 'antd/lib/col';
+
 import SingleChoice from './index/singleChoice.js';
 import SingleImgChoice from './index/singleImgChoice.js'
 import MultiSelect from './index/multiSelect.js';
@@ -16,7 +21,7 @@ const getQuery=(name)=>{
     return null;
 }
 
-class Index extends Component {
+class Index extends React.Component {
     constructor(props) {
         super(props);
         this.onPost=this.onPost.bind(this);

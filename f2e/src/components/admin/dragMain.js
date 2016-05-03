@@ -1,14 +1,14 @@
-import React,{Component} from 'react';
-import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
-import {DragDropContext} from 'react-dnd';
+import React from 'react';
+import connect from 'react-redux/lib/components/connect';
+import bindActionCreators from 'redux/lib/bindActionCreators';
+import DragDropContext from 'react-dnd/lib/DragDropContext';
 import HTML5Backend from 'react-dnd-html5-backend';
 import * as actions from '../../actions/adminActions';
 import FillIn from './_fillIn.js';
 import PublicLayout from './_publicLayout.js';
 
 @DragDropContext(HTML5Backend)
-export default class DragMain extends Component{
+export default class DragMain extends React.Component{
 
 	constructor(props){
 		super(props);

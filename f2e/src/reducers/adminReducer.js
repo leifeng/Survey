@@ -1,7 +1,4 @@
-import {
-	combineReducers
-}
-from 'redux';
+import combineReducers from 'redux/lib/combineReducers';
 import {
 	INIT_QUESTION, ADD_QUESTION, EDIT_QUESTION, DEL_QUESTION, EDIT_ORDER, EDIT_TITLE, UPDATE_ORDERS, UPDATE_QUESTION, SET_SID, UPDATE_LOAD, UPDATE_SETTING, DELID
 }

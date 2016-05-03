@@ -1,4 +1,4 @@
-import {combineReducers} from 'redux';
+import combineReducers from 'redux/lib/combineReducers';
 import {SET_QUESTION,SET_VALUE,SET_INDEX_INFO,INIT_SURVEY,SET_ID,UPDATE_MSG} from '../actions/index.js';
 
 const initState={

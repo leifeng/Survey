@@ -2,16 +2,16 @@ var path = require('path');
 var webpack = require('webpack');
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
 module.exports = {
-    entry: './src/admin.js',
+    entry: './src/report.js',
     output: {
         path: path.join(__dirname, 'dist'),
-        filename: 'fb.js',
+        filename: 'report.js',
         publicPath: '/dist/'
     },
     externals: {
       'react': 'React',
       'react-dom':'ReactDOM',
-      'redux':'Redux'
+      'echarts':'echarts'
     },
     plugins: [
         new ExtractTextPlugin("fb.css"),

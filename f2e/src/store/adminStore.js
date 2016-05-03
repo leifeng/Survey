@@ -1,6 +1,10 @@
-import { createStore, compose, combineReducers,applyMiddleware } from 'redux';
+import createStore from 'redux/lib/createStore';
+import compose from 'redux/lib/compose';
+import applyMiddleware from 'redux/lib/applyMiddleware';
+
 import thunkMiddleware from 'redux-thunk';
 import rootReducer from '../reducers/adminReducer';
+
 
 const createStoreWithMiddleware = compose(
     applyMiddleware(thunkMiddleware)

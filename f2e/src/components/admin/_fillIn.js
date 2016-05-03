@@ -1,9 +1,13 @@
-import React,{Component} from 'react';
+import React from 'react';
 import {findDOMNode} from 'react-dom';
-import {Input,Icon,Tooltip} from 'antd';
-import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
-import { DragSource, DropTarget } from 'react-dnd';
+import Tooltip  from "antd/lib/tooltip";
+import Input  from "antd/lib/input";
+
+
+import connect from 'react-redux/lib/components/connect';
+import bindActionCreators from 'redux/lib/bindActionCreators';
+import  DropTarget  from 'react-dnd/lib/DropTarget';
+import  DragSource from 'react-dnd/lib/DragSource';
 import * as actions from '../../actions/adminActions';
 
 const source={
@@ -54,7 +58,7 @@ const target={
   connectDragSource: connect.dragSource(),
   isDragging: monitor.isDragging()
 }))
-export default class FillIn extends Component{
+export default class FillIn extends React.Component{
 
 	constructor(props){
 		super(props);
