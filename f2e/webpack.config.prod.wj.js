@@ -8,11 +8,6 @@ module.exports = {
         filename: 'wj.js',
         publicPath: '/dist/'
     },
-    externals: {
-      'react': 'React',
-      'react-dom':'ReactDOM',
-      'redux':'Redux'
-    },
     plugins: [
         new ExtractTextPlugin("wj.css"),
         new webpack.NoErrorsPlugin(),

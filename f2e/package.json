@@ -4,13 +4,11 @@
   "description": "问卷系统",
   "main": "index.js",
   "scripts": {
-    "build:webpack1": "set NODE_ENV=production && webpack  --config webpack.config.prod.wj.js  --progress  --colors --profile ",
-    "build:webpack2": "set NODE_ENV=production && webpack  --config webpack.config.prod.admin.js --progress  --colors --profile ",
-    "build:webpack3": "set NODE_ENV=production && webpack  --config webpack.config.prod.report.js --progress  --colors --profile ",
+    "build:webpack1": "export NODE_ENV=production && webpack  --config webpack.config.prod.wj.js --progress  --colors --profile ",
+    "build:webpack2": "export NODE_ENV=production && webpack  --config webpack.config.prod.admin.js --progress  --colors --profile ",
     "start": "node server.js",
     "build1": "npm run build:webpack1",
-    "build2": "npm run build:webpack2",
-    "build3": "npm run build:webpack3"
+    "build2": "npm run build:webpack2"
   },
   "author": "zcl",
   "license": "ISC",
@@ -49,10 +47,10 @@
     "redux": "^3.5.2"
   },
   "dependencies": {
-    "antd": "^0.12.16",
-    "dragula": "^3.6.8",
-    "echarts": "^3.1.7",
     "react": "^15.0.1",
-    "react-dom": "^15.0.1"
+    "react-dom": "^15.0.1",
+    "antd": "^0.12.16",
+    "echarts": "^3.1.7",
+    "dragula": "^3.6.8"
   }
 }

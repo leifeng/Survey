@@ -1,11 +1,7 @@
 import React from 'react';
 import connect from 'react-redux/lib/components/connect';
 import bindActionCreators from 'redux/lib/bindActionCreators';
-import Button  from "antd/lib/button";
-import Input  from "antd/lib/input";
-import Icon  from "antd/lib/icon";
-import Row  from "antd/lib/row";
-import Col  from "antd/lib/col";
+import { Affix, Button,Input,Icon,Row,Col } from 'antd';
 import DatePicker  from "antd/lib/date-picker";
 import Checkbox  from "antd/lib/checkbox";
 import notification  from "antd/lib/notification";
@@ -52,12 +48,29 @@ class Admin extends React.Component {
                     </ul>
                 </div>
                 <Row>
+<<<<<<< HEAD
                     <Col span="15" offset="4">
+=======
+                  <Affix offset={180}>
+                    <Col span="3">
+                        <div className="leftSide">
+                            <ul className="qs" onClick={this.onAddQ}>
+                                <li><Button type="dashed" data-type="1" size="large"><Icon type="plus-circle-o" />单选题</Button></li>
+                                <li><Button type="dashed" data-type="2" size="large"><Icon type="check-circle-o" />多选题</Button></li>
+                                <li><Button type="dashed" data-type="3" size="large"><Icon type="question-circle-o" />问答题</Button></li>
+                                <li><Button type="dashed" data-type="4" size="large"><Icon type="bars" />排序题</Button></li>
+                            </ul>
+                        </div>
+                    </Col>
+                  </Affix>
+                    <Col span="15" offset="1">
+>>>>>>> 1f42b83568c507439a0b3a7dfff30d52cc5c3228
                         <div className="rightQuestion">
-                            <div><Input size="large" placeholder="标题" onChange={this.onTitleChange} value={initData.title}/></div>
+                            <div><Input size="large" placeholder="问卷标题" onChange={this.onTitleChange} value={initData.title}/></div>
                             <div className="targetQ">
                                 <DragMain/>
                             </div>
+                            <div><lable>注：点击左侧题型添加问题</lable></div>
                             <Button data-s="1" type="primary" size="large" loading={loading} onClick={this.onPost}><Icon type="save" /> 保存</Button>
                             &nbsp;
                             <Button data-s="2" type="primary" size="large" loading={loading} onClick={this.onPost}><Icon type="export" /> 保存并发布</Button>
@@ -66,22 +79,23 @@ class Admin extends React.Component {
                     <Col span="4" offset="1">
                         <ul className="op">
                             <li><h5>权限设置</h5></li>
-                            <li><DatePicker onChange={this.onChangeEndTime}  placeholder="结束日期" disabledDate={this.disabledEndDate}  value={initData.setting.endTime}/></li>
-                            <li><label><Checkbox checked={initData.setting.requireLogin} onChange={this.onIsLogin} />匿名提交</label></li>
-                            <li><label><Checkbox checked={initData.setting.ipConfine} onChange={this.onIp} />ip限制</label></li>
-                            <li><label><Checkbox checked={initData.setting.isRepeat} onChange={this.onRepeat} />重复提交</label></li>
-                        </ul>          
+                            <li><span>有效期</span></li>
+                            <li><DatePicker onChange={this.onChangeEndTime}  placeholder="结束日期" disabledDate={this.disabledEndDate}  value={initData.endTime}/></li>
+                            <li><label><Checkbox checked={initData.anonymous} onChange={this.onIsLogin} />匿名提交</label></li>
+                            <li><label><Checkbox checked={initData.ipConfine} onChange={this.onIp} />ip限制</label></li>
+                            <li><label><Checkbox checked={initData.isRepeat} onChange={this.onRepeat} />重复提交</label></li>
+                        </ul>
                     </Col>
                 </Row>
             </div>
         )
     }
-    componentDidMount() { 
-        const {getQuestion}=this.props;     
+    componentDidMount() {
+        const {getQuestion}=this.props;
         const sid=getQuery('sid');
         if(sid){
             getQuestion(sid);
-        }        
+        }
     }
 
     disabledEndDate(endTime) {
@@ -95,17 +109,17 @@ class Admin extends React.Component {
 
     onIsLogin(e){
          const {updateSetting}=this.props;
-         updateSetting('requireLogin', e.target.checked);
+         updateSetting('anonymous', e.target.checked?1:0);
     }
 
     onIp(e){
          const {updateSetting}=this.props;
-         updateSetting('ipConfine', e.target.checked);
+         updateSetting('ipConfine', e.target.checked?1:0);
     }
 
     onRepeat(e){
          const {updateSetting}=this.props;
-         updateSetting('isRepeat', e.target.checked);
+         updateSetting('isRepeat', e.target.checked?1:0);
     }
 
     onTitleChange(e){
@@ -128,7 +142,8 @@ class Admin extends React.Component {
             unique:guid(),
             kind:t,
             title:'',
-            answers:[]
+            options:[],
+            answer:''
         });
     }
 
@@ -151,7 +166,7 @@ class Admin extends React.Component {
 
 }
 
-function mapStateToProps(state) {    
+function mapStateToProps(state) {
     return {
         initData:state.initData,
         loading:state.loading

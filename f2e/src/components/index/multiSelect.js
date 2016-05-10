@@ -14,11 +14,11 @@ export default class MultiSelect extends React.Component {
     }
 
     render() {
-        const {title,answers,index}=this.props;
+        const {title,options,index}=this.props;
         return (
             <div className="question">
                 <div className="qt">{index-0+1}. {title}</div>
-                <CheckboxGroup options={answers} onChange={this.onChange} />
+                <CheckboxGroup options={options} onChange={this.onChange} />
             </div>
         )
     }

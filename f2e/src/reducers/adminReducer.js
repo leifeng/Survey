@@ -5,18 +5,25 @@ import {
 from '../actions/adminActions.js';
 import update from 'react/lib/update';
 
-
+const getNowString = (date) =>{
+	// var date =new Date();
+	var y = date.getFullYear();
+	var m = date.getMonth();
+	var d = date.getDate();
+	var h = date.getHours();
+	var i = date.getMinutes();
+	var s = date.getSeconds();
+	return y+"-"+m+"-"+d+" "+h+":"+i+":"+s;
+}
 
 const initState = {
 	id: '',
 	title: '',
-	setting: {
-		endTime: '',
-		collections: '',
-		ipConfine: false,
-		isRepeat: false,
-		requireLogin: false
-	},
+	anonymous:1,
+	endTime:getNowString(new Date()),
+	collections:0,
+	ipConfine:0,
+	isRepeat:1,
 	questions: [],
 	delId: []
 };
@@ -66,9 +73,7 @@ const initData = (state = initState, action = null) => {
 		case UPDATE_SETTING://修改设置
 			let sett = {};
 			sett[action.name] = action.value;
-			return Object.assign({}, state, {
-				setting: Object.assign({},state.setting,sett)
-			});
+			return Object.assign({}, state, sett);
 		default:
 			return state;
 	}

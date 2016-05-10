@@ -8,11 +8,6 @@ module.exports = {
         filename: 'fb.js',
         publicPath: '/dist/'
     },
-    externals: {
-      'react': 'React',
-      'react-dom':'ReactDOM',
-      'redux':'Redux'
-    },
     plugins: [
         new ExtractTextPlugin("fb.css"),
         new webpack.NoErrorsPlugin(),

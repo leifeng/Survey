@@ -1,17 +1,18 @@
 import React from 'react';
 import {findDOMNode} from 'react-dom';
 
-import Button  from "antd/lib/button";
-import Input  from "antd/lib/input";
-import Icon  from "antd/lib/icon";
+// import Button  from "antd/lib/button";
+// import Input  from "antd/lib/input";
+// import Icon  from "antd/lib/icon";
 
+import { Form, Input, Checkbox,Icon,Button } from 'antd';
+const FormItem = Form.Item;
 
 import connect from 'react-redux/lib/components/connect';
 import bindActionCreators from 'redux/lib/bindActionCreators';
 import  DropTarget  from 'react-dnd/lib/DropTarget';
 import  DragSource from 'react-dnd/lib/DragSource';
 import * as actions from '../../actions/adminActions';
-
 const source={
     beginDrag(props){
         return {
@@ -73,21 +74,21 @@ export default class PublicLayout extends React.Component{
 
 	render() {
         const {isDragging,connectDragSource,connectDropTarget}=this.props;
-		const {title,answers,txt,type,index}=this.props;
+		const {title,options,txt,type,index}=this.props;
         const opacity = isDragging ? 0 : 1;
         return connectDragSource(connectDropTarget(
         	<div className="panel" style={{opacity}}>
         		<div className="title">
         		{index+1}.{txt}
-        	   <a className="del" onClick={this.onDelQ}><Icon type="cross-circle-o" /></a>        		
+        	   <a className="del" onClick={this.onDelQ}><Icon type="cross-circle-o" /></a>
         		</div>
 	            <div className="question">
-	                <Input id="defaultInput" placeholder="标题" onChange={this.onTitleChange} value={title}/>
+              <Input id="defaultInput" placeholder="问卷标题" onChange={this.onTitleChange} value={title}/>
 	                <ul className="list"  onClick={this.onDelOpt}>
-	                	 {answers.map((item,index)=>{
+	                	 {options.map((item,index)=>{
 	                		return <li key={index}><Icon type="minus-circle-o" data-index={index}/><input type="text" value={item} data-index={index} onChange={this.onOptChange}/></li>
 	                	})}
-	                </ul>	               
+	                </ul>
 	                <Button type="primary" onClick={this.onAdd} size="small"><Icon type="plus-circle-o" />添加</Button>
 	            </div>
             </div>
@@ -95,19 +96,19 @@ export default class PublicLayout extends React.Component{
     }
 
     onDelOpt(e){
-    	const {editQuestion,unique,answers,id}=this.props;
+    	const {editQuestion,unique,options,id}=this.props;
     	const target=e.target;
     	if(target.nodeName==='I'){
     		const idx=target.getAttribute('data-index')-0;
     		editQuestion(id+unique,{
-    			answers:answers.filter((item,index)=>index!==idx)
+    			options:options.filter((item,index)=>index!==idx)
     		})
     	}
     }
 
     onDelQ(){
     	const {unique,delQuestion,id,delId}=this.props;
-        if(id) delId(id);        
+        if(id) delId(id);
     	delQuestion(id+unique);
     }
 
@@ -115,26 +116,26 @@ export default class PublicLayout extends React.Component{
     	const {editQuestion,unique,id}=this.props;
     	editQuestion(id+unique,{
     		title:e.target.value
-    	}); 
+    	});
     }
 
     onOptChange(e){
     	const target=e.target;
-        const {editQuestion,answers,unique,id}=this.props;
+        const {editQuestion,options,unique,id}=this.props;
     	if(target.nodeName==='INPUT'){
     		let idx=target.getAttribute('data-index');
     		let value=target.value;
     		editQuestion(id+unique,{
-    			answers:answers.map((item,index)=>index==idx?value:item)
-    		}); 
-    	}        
+    			options:options.map((item,index)=>index==idx?value:item)
+    		});
+    	}
     }
 
     onAdd(){
-        const {editQuestion,unique,answers,id}=this.props;
+        const {editQuestion,unique,options,id}=this.props;
         editQuestion(id+unique,{
-    	   answers:[...answers,'']
-    	}); 
+    	   options:[...options,'']
+    	});
     }
 
 }

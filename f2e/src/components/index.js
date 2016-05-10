@@ -32,7 +32,7 @@ class Index extends React.Component {
         const msg=postResult.hidden===0?(<Alert message={postResult.msg} type={postResult.err} showIcon />):null;
         return (
             <div>
-           
+
                 <div className="main">
                      <h1 className="title">标题</h1>
                      <h4 className="subtitle">发布人：{initData.author}  共 {initData.num} 人参与</h4>
@@ -55,8 +55,8 @@ class Index extends React.Component {
                        <div className="btnList">
                         <div><Button type="primary" size="large" onClick={this.onPost}>提交</Button></div>
                           <div> {msg}</div>
-                       </div> 
-                   
+                       </div>
+
                 </div>
             </div>
         )

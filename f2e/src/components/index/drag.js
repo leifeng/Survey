@@ -9,16 +9,16 @@ class GragItem extends React.Component {
     }
 
     render() {
-        const {answers} = this.props;
+        const {options} = this.props;
         return (
             <div className='dragula'>
-                {answers.map((item, index) => {
+                {options.map((item, index) => {
                     return <div key={index}  data-value={item}>{item}</div>
-                })} 
+                })}
             </div>
             )
     }
-    
+
 
     componentDidMount(){
             const {id,setValue}=this.props;
@@ -32,7 +32,7 @@ class GragItem extends React.Component {
               }
                 setValue(id,arr.join(','));
             })
-        
+
     }
 }
 
@@ -42,11 +42,11 @@ export default class Grag extends React.Component {
     }
 
     render() {
-        const {title, answers,index,setValue,id} = this.props;
+        const {title, options,index,setValue,id} = this.props;
         return (
             <div className="question">
                 <div className="qt">{index-0+1}.{title} </div>
-                <GragItem answers = {answers} setValue={setValue} id={id}/> 
+                <GragItem answers = {options} setValue={setValue} id={id}/>
             </div>
         )
     }

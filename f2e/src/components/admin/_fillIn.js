@@ -2,7 +2,7 @@ import React from 'react';
 import {findDOMNode} from 'react-dom';
 import Tooltip  from "antd/lib/tooltip";
 import Input  from "antd/lib/input";
-
+import Icon  from "antd/lib/icon";
 
 import connect from 'react-redux/lib/components/connect';
 import bindActionCreators from 'redux/lib/bindActionCreators';
@@ -74,7 +74,7 @@ export default class FillIn extends React.Component{
         		<div className="title">
         		{index+1}.问答题
         		<Tooltip placement="rightBottom" title="删除"><a className="del" onClick={this.onDelQ}><Icon type="cross-circle-o" /></a></Tooltip>
-        		
+
         		</div>
 	            <div className="question">
 	                <Input id="defaultInput" placeholder="问题" onChange={this.onTitleChange} defaultValue={title}/>
@@ -93,7 +93,7 @@ export default class FillIn extends React.Component{
         const {editQuestion,unique,id}=this.props;
         editQuestion(id+unique,{
             title:e.target.value
-        }); 
+        });
     }
 }
 

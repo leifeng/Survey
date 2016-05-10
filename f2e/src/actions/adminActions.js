@@ -22,12 +22,19 @@ export const initQuestion=(data)=>{
 }
 
 export const getQuestion=(id)=>{
+	var rfrom = requestFrom || "web";
+	var url = "";
+	if(rfrom == 'admin'){
+		url = '/admin/survey/get/sid/';
+	}else if(rfrom == 'web') {
+		url = '/user/get/sid/';
+	}
 	return dispatch=>{
-		return fetch('/admin/survey/get/sid/'+id,{
+		return fetch(url+id,{
 			credentials: 'same-origin'
 		})
 		.then(res=>res.json())
-		.then(json=>dispatch(initQuestion(json)));
+		.then(json=>dispatch(initQuestion(json.data)));
 	}
 }
 
@@ -92,8 +99,16 @@ export const updateLoad=(load)=>{
 }
 
 export const postSurvey=(status,cb)=>{
+	var rfrom = requestFrom || "web";
+	var url = "";
+	if(rfrom == 'admin'){
+		url = '/admin/survey/edit';
+	}else if(rfrom == 'web') {
+		url = '/user/edit';
+	}
+
 	return (dispatch,getState)=>{
-		fetch('/admin/survey/edit',{
+		fetch(url,{
 			method: 'post',
 			  headers: {
 			    'Accept': 'application/json',
@@ -104,7 +119,7 @@ export const postSurvey=(status,cb)=>{
 		})
 		.then(res=>res.json())
 		.then(json=>{
-			if(json.msg==='OK'){
+			if(json.errno===0){
 				dispatch(updateLoad(false))
 				cb('success');
 			}

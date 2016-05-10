@@ -5,7 +5,6 @@ const initState={
 	questions:[],
 	author:'',
 	num:0
-
 };
 const answerState={
 	id:'',
