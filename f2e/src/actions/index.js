@@ -49,7 +49,7 @@ export const postAnswer = () => {
             },
             body: JSON.stringify(getState().answers)
         }).then(req=>req.json()).then(json=>{
-            if(json.errnum===0){
+            if(json.errno===0){
                 dispatch(updateMsg({err:'success',msg:'回答成功',hidden:0}))
             }else{
                 dispatch(updateMsg({err:'error',msg:json.errmsg,hidden:0}))

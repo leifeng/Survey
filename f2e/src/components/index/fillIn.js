@@ -1,6 +1,6 @@
-import React,{Component} from 'react';
-import {Input} from 'antd';
-export default class FillIn extends Component {
+import React from 'react';
+import Input from 'antd/lib/input';
+export default class FillIn extends React.Component {
     constructor(props) {
         super(props);
         this.onChange=this.onChange.bind(this);

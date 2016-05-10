@@ -1,7 +1,7 @@
-import React,{Component} from 'react';
-import {Radio} from 'antd';
+import React from 'react';
+import Radio from 'antd/lib/radio';
 const RadioGroup = Radio.Group;
-export default class SingleImgChoice extends Component {
+export default class SingleImgChoice extends React.Component {
 
     constructor(props) {
         super(props);

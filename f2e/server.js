@@ -7,10 +7,12 @@ var bodyParser = require('body-parser')
 var compiler = webpack(config);
 
 // parse application/x-www-form-urlencoded 
-app.use(bodyParser.urlencoded({ extended: false })) 
-// parse application/json 
+app.use(bodyParser.urlencoded({
+        extended: false
+    }))
+    // parse application/json 
 app.use(bodyParser.json())
-
+app.use('/static', express.static('static'));
 app.use(require('webpack-dev-middleware')(compiler, {
     noInfo: true,
     publicPath: config.output.publicPath
@@ -115,15 +117,39 @@ app.get('/app/survey/:id', function(req, res) {
         }]
     })
 });
-app.post('/admin/post/survey/edit',function(req,res){
+app.post('/admin/post/survey/edit', function(req, res) {
     console.log(req.body);
-    res.json({msg:'OK'});
+    res.json({
+        msg: 'OK'
+    });
+});
+app.get('/report/:qid', function(req, res) {
+    res.json({
+        "errno": 0,
+        "errmsg": "",
+        "data": {
+            "title": "ssss",
+            "answers": [{
+                "value": 3,
+                "name": "a"
+            }, {
+                "value": 1,
+                "name": "b"
+            }, {
+                "value": 1,
+                "name": "c"
+            }]
+        }
+    })
 })
 app.get('*', function(req, res) {
     res.sendFile(path.join(__dirname, 'index.html'));
 });
-app.post('/app/post/answer',function(req,res){
-    res.json({errnum:1,errmsg:'asdfasdfasdf'})
+app.post('/app/post/answer', function(req, res) {
+    res.json({
+        errnum: 1,
+        errmsg: 'asdfasdfasdf'
+    })
 })
 app.listen(3000, 'localhost', function(err) {
     if (err) {
