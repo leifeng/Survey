@@ -43,18 +43,16 @@ class Admin extends React.Component {
         const {initData,loading}=this.props;
         return (
             <div className="main">
+                <div className="leftSide">
+                    <ul className="qs" onClick={this.onAddQ}>
+                        <li><Button type="dashed" data-type="1" size="large"><Icon type="plus-circle-o" />单选题</Button></li>
+                        <li><Button type="dashed" data-type="2" size="large"><Icon type="check-circle-o" />多选题</Button></li>
+                        <li><Button type="dashed" data-type="3" size="large"><Icon type="question-circle-o" />问答题</Button></li>
+                        <li><Button type="dashed" data-type="4" size="large"><Icon type="bars" />排序题</Button></li>                       
+                    </ul>
+                </div>
                 <Row>
-                    <Col span="3">
-                        <div className="leftSide">
-                            <ul className="qs" onClick={this.onAddQ}>
-                                <li><Button type="dashed" data-type="1" size="large"><Icon type="plus-circle-o" />单选题</Button></li>
-                                <li><Button type="dashed" data-type="2" size="large"><Icon type="check-circle-o" />多选题</Button></li>
-                                <li><Button type="dashed" data-type="3" size="large"><Icon type="question-circle-o" />问答题</Button></li>
-                                <li><Button type="dashed" data-type="4" size="large"><Icon type="bars" />排序题</Button></li>                       
-                            </ul>
-                        </div>
-                    </Col>
-                    <Col span="15" offset="1">
+                    <Col span="15" offset="4">
                         <div className="rightQuestion">
                             <div><Input size="large" placeholder="标题" onChange={this.onTitleChange} value={initData.title}/></div>
                             <div className="targetQ">
